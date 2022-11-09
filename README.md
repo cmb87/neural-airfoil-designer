@@ -51,6 +51,81 @@ To train the variational autoencoder run
 By default, the model is trained with a batch norm of 8, learning rate of 1e-4, 3000 epochs and saved as `weights-cpk.h5`.
 
 
+    __________________________________________________________________________________________________
+    Layer (type)                   Output Shape         Param #     Connected to
+    ==================================================================================================
+    rgb (InputLayer)               [(None, 256, 4)]     0           []
+
+    encoder (Functional)           [(None, 2),          1580        ['rgb[0][0]']
+                                    (None, 2),
+                                    (None, 2)]
+
+    decoder (Functional)           (None, 256, 4)       500         ['encoder[0][2]']
+
+    conv1d (Conv1D)                (None, 256, 12)      156         ['rgb[0][0]']
+
+    average_pooling1d (AveragePool  (None, 128, 12)     0           ['conv1d[0][0]']
+    ing1D)
+
+    conv1d_1 (Conv1D)              (None, 128, 8)       296         ['average_pooling1d[0][0]']
+
+    conv1d_2 (Conv1D)              (None, 128, 4)       100         ['conv1d_1[0][0]']
+
+    average_pooling1d_2 (AveragePo  (None, 64, 4)       0           ['conv1d_2[0][0]']
+    oling1D)
+
+    flatten (Flatten)              (None, 256)          0           ['average_pooling1d_2[0][0]']
+
+    dense_1 (Dense)                (None, 2)            514         ['flatten[0][0]']
+
+    dense (Dense)                  (None, 2)            514         ['flatten[0][0]']
+
+    tf.math.subtract (TFOpLambda)  (None, 256, 4)       0           ['rgb[0][0]',
+                                                                    'decoder[0][0]']
+
+    tf.__operators__.add (TFOpLamb  (None, 2)           0           ['dense_1[0][0]']
+    da)
+
+    tf.math.square_1 (TFOpLambda)  (None, 2)            0           ['dense[0][0]']
+
+    tf.math.square (TFOpLambda)    (None, 256, 4)       0           ['tf.math.subtract[0][0]']
+
+    tf.math.subtract_1 (TFOpLambda  (None, 2)           0           ['tf.__operators__.add[0][0]',
+    )                                                                'tf.math.square_1[0][0]']
+
+    tf.math.exp (TFOpLambda)       (None, 2)            0           ['dense_1[0][0]']
+
+    tf.math.reduce_sum (TFOpLambda  ()                  0           ['tf.math.square[0][0]']
+    )
+
+    tf.math.subtract_2 (TFOpLambda  (None, 2)           0           ['tf.math.subtract_1[0][0]',
+    )                                                                'tf.math.exp[0][0]']
+
+    tf.math.multiply (TFOpLambda)  ()                   0           ['tf.math.reduce_sum[0][0]']
+
+    tf.math.reduce_sum_1 (TFOpLamb  (None,)             0           ['tf.math.subtract_2[0][0]']
+    da)
+
+    tf.math.truediv (TFOpLambda)   ()                   0           ['tf.math.multiply[0][0]']
+
+    tf.math.multiply_1 (TFOpLambda  (None,)             0           ['tf.math.reduce_sum_1[0][0]']
+    )
+
+    tf.__operators__.add_1 (TFOpLa  (None,)             0           ['tf.math.truediv[0][0]',
+    mbda)                                                            'tf.math.multiply_1[0][0]']
+
+    tf.math.reduce_mean (TFOpLambd  ()                  0           ['tf.__operators__.add_1[0][0]']
+    a)
+
+    add_loss (AddLoss)             ()                   0           ['tf.math.reduce_mean[0][0]']
+
+    ==================================================================================================
+    Total params: 2,080
+    Trainable params: 2,080
+    Non-trainable params: 0
+    __________________________________________________________________________________________________
+
+
 ## Inference
 
 You can test your model using the file `inference.ipynb`. Use the following prompt to predict the rotation of a specific image:
