@@ -14,7 +14,7 @@ You can specify the following parameters:
 - `--latentDim`: latent dimensions (int)
 - `--batchSize`: batch size (int)
 
-[Samples from Latentspace](assets/latentspace.png).
+![Samples from Latentspace](assets/latentspace.png).
 
 ## Requirements
 
