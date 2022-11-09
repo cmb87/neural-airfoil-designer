@@ -3,11 +3,14 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import json
 import os
+import sys
 import numpy as np
 from tensorflow.keras.layers import Dropout, BatchNormalization, Conv1D, Lambda, MaxPooling1D, Reshape, BatchNormalization, Flatten, UpSampling1D, Dense, AveragePooling1D
 from datetime import datetime
 from tensorflow.keras import regularizers
 from keras import backend as K
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from training.datapipe import Datapipe
 from training.callbacks import DrawImageCallback

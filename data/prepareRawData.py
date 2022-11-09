@@ -5,22 +5,26 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import glob
 import os
+import sys
 import json
 from scipy.interpolate import splprep, splev
-from config import parse_args
 
-# The resolution of points for each side of the airfoil
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from config import parse_args
 
 
 def main(arg):
 
     for ctr,d in enumerate(glob.glob("./data/raw/*.dat")):
     
-        df = pd.read_table(d, sep="\s+")
-    
+        df = pd.read_table(d, sep="\s+", skipfooter=1)
+
+
         if len(df.columns) == 1:
             df = df.reset_index(level=0)
 
+        print(df)
 
         if True:
         #  df.columns = ["x", "y"] 
@@ -33,7 +37,9 @@ def main(arg):
                 df = df[(df.iloc[:,0]<=1.0) & (df.iloc[:,1]<=1.0) & (df.iloc[:,0]>=0.0) & (df.iloc[:,1]>=-1.0)]
 
             except:
-                print(f"Couldnt process {f}")
+                print(f"Couldnt process {d}")
+
+            
 
             ntepts = 0
             eps = 1e-8
@@ -204,7 +210,7 @@ def main(arg):
 
             plt.axis("equal")
             plt.title(f"{d} {case}")
-            plt.savefig(f"images/{name}.png")
+            plt.savefig(f"./data/images/{name}.png")
 
 
             plt.close()
