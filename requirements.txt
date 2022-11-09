@@ -1,0 +1,6 @@
+numpy
+matplotlib
+tensorflow>=2.0
+scipy
+pandas
+beautifulsoup4
