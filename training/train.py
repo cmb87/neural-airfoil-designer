@@ -24,7 +24,6 @@ def main(arg):
     batchSize = arg.batchSize
 
 
-
     dp = Datapipe("./data/processed/*.json")
     g, gt = dp.create(split= arg.testTrainSplit, batchSize=batchSize)
 
