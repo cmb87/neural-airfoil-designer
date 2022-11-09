@@ -16,7 +16,7 @@ links = []
 for link in soup.find_all("a", attrs={'href': pattern}):
     links.append(link.get('href'))
 
-    urllib2.urlretrieve(basePath+link.get('href'), "./raw/"+link.get('href').rsplit('/',1)[-1])
+    urllib2.urlretrieve(basePath+link.get('href'), "./data/raw/"+link.get('href').rsplit('/',1)[-1])
 
 print(link)
 

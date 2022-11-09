@@ -14,7 +14,7 @@ from config import parse_args
 
 def main(arg):
 
-    for ctr,d in enumerate(glob.glob("./raw/*.dat")):
+    for ctr,d in enumerate(glob.glob("./data/raw/*.dat")):
     
         df = pd.read_table(d, sep="\s+")
     
@@ -211,7 +211,7 @@ def main(arg):
 
             data = {"name": name, "ss": [xss[0].tolist(), xss[1].tolist()], "ps": [xps[0].tolist(), xps[1].tolist()]}
 
-            with open(f"processed/{name}.json", "w") as outfile:
+            with open(f"./data/processed/{name}.json", "w") as outfile:
                 outfile.write(json.dumps(data, indent=4))
 
 

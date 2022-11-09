@@ -23,19 +23,17 @@ Install the requirements with:
 `pip install -r requirements.txt`
 
 
-
 ## Get the dataset
 
 Data are taken from here: [Illinois Airfoil Database](https://m-selig.ae.illinois.edu/ads/coord_database.html).
 
-To prepare the data set move to ./data
+To prepare the dataset run from project root dir:
 
-    cd data
-    python3 prepareDownload.py
+    python3 ./data/prepareDownload.py
 
 This script will download all .dat files and place them in ./data/raw. For more information on the download script see here: [Josh the engineer](https://www.youtube.com/watch?v=nILo18DlqAo). To prepare the raw data run
 
-    python3 prepareRawData.py
+    python3 ./data/prepareRawData.py
 
 in the same folder (./data). This will generated a json file for each .dat file with the following structure:
 
@@ -48,11 +46,10 @@ in the same folder (./data). This will generated a json file for each .dat file 
 
 To train the variational autoencoder run 
 
-`python training/train.py`
+    python training/train.py
 
 By default, the model is trained with a batch norm of 8, learning rate of 1e-4, 3000 epochs and saved as `weights-cpk.h5`.
 
- the saved model (str)
 
 ## Inference
 

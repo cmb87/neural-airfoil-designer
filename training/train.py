@@ -25,7 +25,7 @@ def main(arg):
 
 
 
-    dp = Datapipe("../data/processed/*.json")
+    dp = Datapipe("./data/processed/*.json")
     g, gt = dp.create(split= arg.testTrainSplit, batchSize=batchSize)
 
     latent_dim = arg.latentDim
